@@ -1,7 +1,8 @@
 import React from "react";
+
 import Task from "./Task";
 
-const Tasks = ({ tasks, onDelete, onToggle }) => {
+const TasksList = ({ tasks, onDelete, onToggle }) => {
   return (
     <>
       {tasks.map((task) => (
@@ -16,4 +17,8 @@ const Tasks = ({ tasks, onDelete, onToggle }) => {
   );
 };
 
-export default Tasks;
+TasksList.defaultProps = {
+  tasks: [],
+};
+
+export default TasksList;
