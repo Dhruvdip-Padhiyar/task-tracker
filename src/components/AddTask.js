@@ -17,9 +17,13 @@ const AddTask = ({ onAddTask }) => {
       return;
     }
 
+    console.log(textValue, dayValue, reminderValue);
     onAddTask({ text: textValue, day: dayValue, reminder: reminderValue });
-  };
 
+    textRef.current.value = null;
+    dayRef.current.value = null;
+    reminderRef.current.checked = false;
+  };
   return (
     <form className="add-form" onSubmit={handleSubmit}>
       <div className="form-control">
