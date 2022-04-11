@@ -1,9 +1,13 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import { useState, useEffect } from "react";
 
 /* Components */
-import Header from "./components/Header";
-import TasksList from "./components/TasksList";
-import AddTask from "./components/AddTask";
+import Header from "./components/Header.js";
+import TasksList from "./components/TasksList.js";
+import AddTask from "./components/AddTask.js";
+import Footer from "./components/Footer.js";
+import About from "./components/About.js";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
@@ -84,29 +88,36 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <Header onShow={showForm} onclick={displayForm} />
-      {showForm && <AddTask onAddTask={addTask} />}
+    <Router>
+      <div className="container">
+        <Header onShow={showForm} onclick={displayForm} />
 
-      {tasks.length > 0 ? (
-        <TasksList
-          tasks={tasks}
-          onDelete={deleteTask}
-          onToggle={toggleReminder}
-        />
-      ) : (
-        "no tasks"
-      )}
-    </div>
+        <Routes>
+          <Route
+            path="/"
+            exact
+            element={
+              <>
+                {showForm && <AddTask onAddTask={addTask} />}
+
+                {tasks.length > 0 ? (
+                  <TasksList
+                    tasks={tasks}
+                    onDelete={deleteTask}
+                    onToggle={toggleReminder}
+                  />
+                ) : (
+                  "no tasks"
+                )}
+              </>
+            }
+          />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
 export default App;
-
-/* Guide */
-/**
- ***** useState() hook ******
- * tasks: Readonly variable
- * setTasks : Function to update the state (setter function)
- * useState(initializer) : Hook to create the state (initializer: string | number | array | object | boolean)
- */
